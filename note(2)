@@ -1,0 +1,15 @@
+<h1> 泛型类 <h1>
+修饰符 class 类名<> {}
+例如： public class ArrayList<E> {}
+可以将E理解为一个变量, 但是E是用来表示数据类型而非记录数据的
+
+还有类似的 T(Type) E(Element) K(Key) V(Value) 等
+
+API:
+
+Map<K, V>
+方法： put:如果键值对不存在，则直接将键值对添加入Map中, 如果键存在：则会覆盖原有的键值对,将被覆盖的value值返回。
+      remove \ clear \ size \ containsKey \ containsValue
+
+
+如果HashMap的键位置存储的是 自定义类，那么要在自定义类中重写 equals 和 hashcode方法

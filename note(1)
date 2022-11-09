@@ -1,0 +1,205 @@
+-- 多态
+//封装和继承都是多态的基础
+· 同种类型的对象,表现出不同的形态(多态的定义)
+· 多态的表现形式 -- 父类类型 对象名称 = 子类对象;
+· 多态的前提： 1.有继承关系; 2.有父类引用指向子类对象; 3.有方法重写;
+
+// 多态调用成员的特点
+- 调用成员变量   Javac编译代码时 会看左边父类中有无这个变量 若有则成功编译，反之编译失败; Java在运行代码的时候,实际获取的是定义时左边父类的中的成员变量.
+- 调用成员方法   Javac编译代码时 会看左边父类中有无这个变量 若有则成功编译，反之编译失败; Java在运行代码的时候,实际获取的是定义在右边的子类的成员方法.
+
+
+NOTICE: 在多态中，子类无法调用自己独有的方法，因此需要强制转换
+```
+Father s = new Child();
+Child c = (Child) s; //强制转化
+```
+
+
+------------------------------------------------------------------
+final 修饰方法
+此关键字修饰的 变量只能被赋值一次, 对象不能被继承, 方法不能被重写但是可以重载
+
+final 修饰引用数据类型, 表示的是地址不能改变, 其内部属性可以改变
+
+
+------------------------------------------------------------------
+抽象类和抽象方法
+
+定义： public abstract 返回值类型 方法名(参数列表) || public abstract class 类名{}
+
+注意事项:
+- 抽象类不能[创建对象(实例化)]
+- 抽象类不一定有抽象方法,有抽象方法的类一定是抽象类
+- 可以有构造方法
+- 抽象类的子类
+    - 要么重写抽象类中所有的抽象方法
+    - 要么也是抽象类
+```
+abstract class Animal {
+    String name;
+    int age;
+
+    public Animal() {
+    }
+
+    public Animal(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public abstract void eat();
+    public void drink(){
+        System.out.println("喝水");
+    }
+}
+
+class Dog extends Animal{
+    public Dog(){
+
+    }
+    public Dog(String name, int age){
+        super(name, age);
+    }
+    @Override
+    public void eat(){
+        System.out.println("狗吃骨头");
+    }
+}
+
+class Frog extends Animal{
+    public Frog(){
+
+    }
+    public Frog(String name, int age){
+        super(name, age);
+    }
+    @Override
+    public void eat(){
+        System.out.println("青蛙吃虫子");
+    }
+}
+
+class Sheep extends Animal{
+    public Sheep(){
+
+    }
+    public Sheep(String name, int age){
+        super(name, age);
+    }
+    @Override
+    public void eat(){
+        System.out.println("山羊吃草");
+    }
+}
+public class Abstract {
+    public static void main(String[] args) {
+        Dog d = new Dog("lssi",2);
+        d.drink();
+        d.eat();
+    }
+
+}
+```
+-------------------------------------------------------
+接口
+- 接口使用关键字interface来定义
+` public Interface 接口名{} `
+- 接口不能实例化
+- 接口和类之间是实现关系，通过implements关键字表示
+` public class 类名 implements 接口名{}`
+- 接口的子类
+    1.要么重写接口中的所有方法
+    2.要么是抽象类
+
+--- 定义一个子类并且链接接口： class 类名 extends 父类 implements 接口1,接口2,....{}
+```
+abstract class Animal{
+    String name;
+    int age;
+    public Animal() {
+    }
+
+    public Animal(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    public abstract void eat();
+
+}
+interface Swim{
+    public abstract void swim();
+
+}
+
+class Rabbit extends Animal{
+    @Override
+    public void eat(){
+        System.out.println("兔子在吃胡萝卜");
+    }
+}
+
+class Dog extends Animal implements Swim{
+    public Dog(){
+
+    }
+    public Dog(String name, int age){
+        super(name,age);
+    }
+    @Override
+    public void eat(){
+        System.out.println("狗仔吃骨头");
+    }
+    @Override
+    public void swim(){
+        System.out.println("狗在游泳");
+    }
+}
+public class Interface {
+    public static void main(String[] args) {
+        Dog d = new Dog("lisi",2);
+        d.eat();
+        d.swim();
+    }
+}
+```
+
+接口中成员变量特点
+- 成员变量
+    只能是常量
+    默认修饰符: public static final
+- 无构造方法
+- 成员方法
+    只能是抽象方法
+    默认修饰符: public abstract
+
+    **现在可以写实体方法
+
+接口和类的关系：
+    可以在继承一个类的同时实现多个接口(但是也要重写所有的接口中的方法)
+接口和接口的关系
+    继承关系，可以单继承，也可以多继承
+
+
+jdk8 接口中可以定义有方法体的方法 
+
+接口中的默认方法: public default void show(){}
+    默认方法不是抽象方法，不强制要求重写该方法
+    如果多个接口有相同的方法，则此方法必须重写
+
+接口中的静态方法: public static void show(){}
+    静态方法只能通过接口名调用，不能通过实现类名或者对象名调用
+
+jdk9 接口中可以定义私有方法
+
+
+
+
+
+
+
+
+
+
+
+

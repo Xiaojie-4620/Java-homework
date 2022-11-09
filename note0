@@ -1,0 +1,38 @@
+// java 只能单继承，不支持多继承，但是支持多层继承
+// A --> extends --> B --> extends --> C;
+
+/** 子类不能继承父类中 private 修饰的成员方法 和 构造方法
+ *  子类不能继承父类中的 任何构造方法
+ *  子类可以继承父类中的成员变量(public 和 private) 其中不能直接使用private修饰的
+ *  子类可以继承父类中非私有的成员方法
+**/
+
+
+/*
+    成员变量的访问特点 ---> 就近原则
+    可以使用关键字访问super访问父类， this访问本类
+    class Fa{
+    String name;
+    }
+    class Zi extends Fa{
+    String name;
+        public void show(){
+            String name;
+            System.out.println(name); --> 方法中的name
+            System.out.println(this.name); --> 类Zi中的name
+            System.out.println(super.name); --> 父类中的name
+        }
+    }
+ */
+
+// 方法重写 @Override 如果在子类中重写方法，那么在虚方法表中，子类的重写的方法将会覆盖父类的方法
+// 1.方法重写时， 方法的名称和形参列表必须和父类一致；2.子类重写父类时，访问权限必须大于父类(private < protected < public)
+
+/**
+ * 继承中：构造方法的访问特点
+ * 1.父类中的构造方法不会被子类继承； 2.子类中所有的构造方法默认先访问父类中的无参构造,再执行自己
+ * 对于2. 子类初始化时可能使用到父类中的数据，因此必须先加载父类(父类的加载一定会执行其构造函数)
+ * 调用父类的有参构造必须手动调用函数super()
+ *
+ * 在子类的构造方法中默认执行 super关键字 进行父类的无参构造
+ */
